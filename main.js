@@ -1,70 +1,74 @@
 
 const numberSpan = document.getElementById('number');
-        const plus = document.getElementById('plusBtn');
-        const minus = document.getElementById('minusBtn');
+const plus = document.getElementById('plusBtn');
+const minus = document.getElementById('minusBtn');
 
-        const subtotalSpan = document.getElementById('subtotal');
-        const taxSpan = document.getElementById('tax');
-        const totalSpan = document.getElementById('total');
+const coverSpan = document.getElementById('coverNumber');
+const coverPlusBtn = document.getElementById('coverPlus');
+const coverMinusBtn = document.getElementById('coverMinus');
 
-        let count = 1;
+const subtotalSpan = document.getElementById('subtotal');
+const taxSpan = document.getElementById('tax');
+const totalSpan = document.getElementById('total');
 
-        plus.addEventListener('click', () => {
-            count++;
-            updateNumber();
-            updateTotal();
-        });
+let count = 1;
+let counts = 1;
 
-        minus.addEventListener('click', () => {
-            count --;
-                updateNumber();
-                updateTotal();          
+plus.addEventListener('click', () => {
+    updateCount(true);
+});
 
-            
-        });
+minus.addEventListener('click', () => {
+    updateCount(false);
+});
 
-        function updateNumber() {
-            numberSpan.textContent = count;
-            price.textContent = count * 1219;
+coverPlusBtn.addEventListener('click', () => {
+    updateCoverCount(true);
+});
 
-            if (count < 1) {
-                count = 1;
-            }
+coverMinusBtn.addEventListener('click', () => {
+    updateCoverCount(false);
+});
+
+function updateCount(isIncrease) {
+    if (isIncrease) {
+        count++;
+    } else {
+        if (count > 1) {
+            count--;
         }
+    }
+    updateNumberAndTotal();
+}
 
-        const coverSpan = document.getElementById('coverNumber');
-        const coverMinusBtn = document.getElementById('coverMinus');
-        const coverPlusBtn = document.getElementById('coverplus');
-
-        let counts = 1;
-
-        coverPlusBtn.addEventListener('click', () => {
-            counts++;
-            updateCoverNumber();
-            updateTotal();
-        });
-
-        coverMinusBtn.addEventListener('click', () => {
+function updateCoverCount(isIncrease) {
+    if (isIncrease) {
+        counts++;
+    } else {
+        if (counts > 1) {
             counts--;
-            updateCoverNumber();
-            updateTotal();
-        });
-
-        function updateCoverNumber() {
-            coverSpan.textContent = counts;
-            coverPrice.textContent = counts * 59;
-
-            if (counts < 1) {
-                counts = 1;
-            }
         }
+    }
+    updateCoverNumberAndTotal();
+}
 
-        function updateTotal() {
-            const subtotal = count * 1219 + counts * 59;
-            const tax = count * 50;
-            const total = subtotal + tax;
+function updateNumberAndTotal() {
+    numberSpan.textContent = count;
+    price.textContent = count * 1219;
+    coverPrice.textContent = counts * 59;
+    const subtotal = count * 1219 + counts * 59;
+    const tax = count * 50;
+    const total = subtotal + tax;
+           
+    subtotalSpan.textContent = subtotal;
+    taxSpan.textContent = tax;
+    totalSpan.textContent = total;
+}
 
-            subtotalSpan.textContent = subtotal;           
-            taxSpan.textContent = tax;
-            totalSpan.textContent = total;
-        }
+function updateCoverNumberAndTotal() {
+    coverSpan.textContent = counts;
+    updateNumberAndTotal();
+}
+
+// ডকুমেন্ট লোড এর সময় তথ্য আপডেট করতে একবার কল করবেন
+updateNumberAndTotal();
