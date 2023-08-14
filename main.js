@@ -70,5 +70,4 @@ function updateCoverNumberAndTotal() {
     updateNumberAndTotal();
 }
 
-// ডকুমেন্ট লোড এর সময় তথ্য আপডেট করতে একবার কল করবেন
 updateNumberAndTotal();
