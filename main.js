@@ -70,4 +70,5 @@ function updateCoverNumberAndTotal() {
     updateNumberAndTotal();
 }
 
-updateNumberAndTotal();
+
+
